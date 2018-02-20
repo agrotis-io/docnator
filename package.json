@@ -4,7 +4,7 @@
   "description": "Start node module",
   "license": "MIT",
   "repository": "github.com/agrotis-io/star-t",
-  "main": "index.js",
+  "main": "build",
   "author": {
     "name": "João Henrique Serodio",
     "email": "jhserodio@gmail.com",
@@ -13,10 +13,6 @@
   "engines": {
     "node": ">=8"
   },
-  "files": [
-    "dist",
-    "index.js"
-  ],
   "scripts": {
     "build": "babel src -d dist",
     "coverage": "npm test -- --coverage",
@@ -34,15 +30,6 @@
     "test": "{src,test}/*.js",
     "lint": "{src,test}/*.js",
     "build": "src"
-  },
-  "release": {
-    "publish": [
-      {
-        "path": "@semantic-release/npm",
-        "pkgRoot": "dist"
-      },
-      "@semantic-release/github"
-    ]
   },
   "jest": {
     "testEnvironment": "node",
