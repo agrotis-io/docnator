@@ -8,40 +8,38 @@ const path = require('path');
  * @param {RegExp} [regExtension=/(\.js$|\.jsx$)/] -  regex for extension files for search
  * @returns {Promise<[String]>} list of all files
  */
-async function readAllFiles(src, regExtensions = /(\.js$|\.jsx$)/) {
-  return new Promise( async (resolve, reject) => {
-
+async function readFiles(src, regExtensions = /(\.js$|\.jsx$)/) {
+  return new Promise(async (resolve, reject) => {
     const dirs = [];
     const files = [];
 
-    await jetpack
-      .existsAsync(src)
-      .then( exist => {
-        if (!exist) { return reject('src path dont exist'); }
+    await jetpack.existsAsync(src).then(exist => {
+      if (!exist) {
+        return reject('src path dont exist');
+      }
+    });
+
+    await jetpack.inspectTreeAsync(src).then(resp => {
+      files = resp.children.filter(item => {
+        return item.type === 'file' && regExtensions.test(item.name);
       });
 
-    await jetpack.inspectTreeAsync(src)
-      .then( resp => {
-        files = resp.children.filter(item => {
-          return item.type === 'file' && regExtensions.test(item.name);
-        });
+      dirs = resp.children.filter(item => item.type === 'dir');
+    });
 
-        dirs = resp.children.filter(item => item.type === 'dir');
-      });
-
-    if(files.length < 1) {
+    if (files.length < 1) {
       return reject('0 files found');
     }
 
-    if(!(regExtensions instanceof RegExp)) {
+    if (!(regExtensions instanceof RegExp)) {
       return reject('regExtensions invalid as regExp Object');
     }
 
-    await series(dirs,
-        async dir => {
-        const newPath = path.resolve(src, dir.name);
-        return readAllFiles(newPath).then(resp => resp);
-      }).then(resp => {
+    await series(dirs, async dir => {
+      const newPath = path.resolve(src, dir.name);
+      return readFiles(newPath).then(resp => resp);
+    })
+      .then(resp => {
         resp.forEach(item => {
           files.push(...item);
         });
@@ -49,7 +47,7 @@ async function readAllFiles(src, regExtensions = /(\.js$|\.jsx$)/) {
       .then(() => {
         resolve(files);
       });
-  })
+  });
 }
 
-export { readAllFiles };
+export { readFiles };
