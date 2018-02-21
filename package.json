@@ -1,9 +1,9 @@
 {
-  "name": "star-t",
-  "version": "0.0.1",
-  "description": "Start node module",
+  "name": "docnator",
+  "version": "0.0.2",
+  "description": "CLI for jsdocs generator",
   "license": "MIT",
-  "repository": "github.com/agrotis-io/star-t",
+  "repository": "github.com/agrotis-io/docnator",
   "main": "dist",
   "author": {
     "name": "João Henrique Serodio",
