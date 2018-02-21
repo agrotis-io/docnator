@@ -9,27 +9,47 @@ const path = require('path');
  * @returns {Promise<[String]>} list of all files
  */
 async function readAllFiles(src, regExtensions = /(\.js$|\.jsx$)/) {
-  const tree = await jetpack.inspectTreeAsync(src);
+  return new Promise( async (resolve, reject) => {
 
-  let files = tree.children.filter(item => {
-    return item.type === 'file' && regExtensions.test(item.name);
-  });
+    const dirs = [];
+    const files = [];
 
-  const dirs = tree.children.filter(item => item.type === 'dir');
-
-  if (dirs.length !== 0) {
-    await series(dirs, async dir => {
-      const newPath = path.resolve(src, dir.name);
-
-      return readAllFiles(newPath).then(resp => resp);
-    }).then(resp => {
-      resp.forEach(item => {
-        files.push(...item);
+    await jetpack
+      .existsAsync(src)
+      .then( exist => {
+        if (!exist) { return reject('src path dont exist'); }
       });
-    });
-  }
 
-  return files;
+    await jetpack.inspectTreeAsync(src)
+      .then( resp => {
+        files = resp.children.filter(item => {
+          return item.type === 'file' && regExtensions.test(item.name);
+        });
+
+        dirs = resp.children.filter(item => item.type === 'dir');
+      });
+
+    if(files.length < 1) {
+      return reject('0 files found');
+    }
+
+    if(!(regExtensions instanceof RegExp)) {
+      return reject('regExtensions invalid as regExp Object');
+    }
+
+    await series(dirs,
+        async dir => {
+        const newPath = path.resolve(src, dir.name);
+        return readAllFiles(newPath).then(resp => resp);
+      }).then(resp => {
+        resp.forEach(item => {
+          files.push(...item);
+        });
+      })
+      .then(() => {
+        resolve(files);
+      });
+  })
 }
 
 export { readAllFiles };
