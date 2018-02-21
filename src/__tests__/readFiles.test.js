@@ -24,7 +24,6 @@ describe('readFiles', () => {
   write(`${srcMock}/secondComponents/child/eighthJs.js`, '');
   write(`${srcMock}/secondComponents/child/ninethJs.js`, '');
 
-
   test('return list of 12 files as js and jsx extension', async () => {});
 
   test('return [{name: String, type: String, size: Number}] formater ', async () => {});
