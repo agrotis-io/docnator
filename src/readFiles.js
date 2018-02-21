@@ -5,7 +5,7 @@ const path = require('path');
 /**
  * @function readAllFiles read all js and jsx extension files of diretory(src) and your sub directories.
  * @param {String} src path of files projects that must be documented
- * @param {RegExp} regExtension regex for extension files for search
+ * @param {RegExp} [regExtension=/(\.js$|\.jsx$)/] -  regex for extension files for search
  * @returns {Promise<[String]>} list of all files
  */
 async function readAllFiles(src, regExtensions = /(\.js$|\.jsx$)/) {
