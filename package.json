@@ -48,7 +48,12 @@
   "keywords": [
     "generator-nod"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "async-array-methods": "^2.1.0",
+    "fs-jetpack": "^1.3.0",
+    "gitbook-cli": "^2.3.2",
+    "jsdoc-to-markdown": "^4.0.1"
+  },
   "devDependencies": {
     "babel-cli": "~6.18.0",
     "babel-eslint": "^8.2.1",

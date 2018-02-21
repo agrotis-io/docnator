@@ -1,4 +1,5 @@
 import { writeSummary } from '../writeSummary';
+
 const jetpack = require('fs-jetpack');
 const path = require('path');
 
