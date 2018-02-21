@@ -4,7 +4,7 @@
   "description": "Start node module",
   "license": "MIT",
   "repository": "github.com/agrotis-io/star-t",
-  "main": "build",
+  "main": "dist",
   "author": {
     "name": "João Henrique Serodio",
     "email": "jhserodio@gmail.com",
@@ -20,7 +20,7 @@
     "postcoverage": "opn coverage/lcov-report/index.html",
     "precommit": "lint-staged",
     "report-coverage": "cat ./coverage/lcov.info | codecov",
-    "test": "jest",
+    "test": "rm -rf ./dist && jest",
     "watch": "npm-watch"
   },
   "lint-staged": {
