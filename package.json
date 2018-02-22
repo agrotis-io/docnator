@@ -27,7 +27,7 @@
     "postcoverage": "opn coverage/lcov-report/index.html",
     "precommit": "lint-staged",
     "report-coverage": "cat ./coverage/lcov.info | codecov",
-    "test": "rm -rf ./dist && jest",
+    "test": "rm -rf dist && jest",
     "watch": "npm-watch"
   },
   "lint-staged": {
@@ -43,6 +43,11 @@
     "mapCoverage": true,
     "collectCoverage": true,
     "coverageDirectory": "./coverage",
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/dist/",
+      "<rootDir>/docs/",
+      "<rootDir>/node_modules/"
+    ],
     "coverageThreshold": {
       "global": {
         "branches": 100,
