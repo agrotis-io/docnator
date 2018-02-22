@@ -3,8 +3,6 @@ import { readFiles } from '../readFiles';
 const jetpack = require('fs-jetpack');
 const path = require('path');
 
-
-
 describe('readFiles', () => {
   //prepare for the tests
   const tempDist = path.resolve(process.cwd(), 'temp');
@@ -13,7 +11,7 @@ describe('readFiles', () => {
   const { writeAsync } = jetpack;
   const regexDefault = /(\.js$|\.jsx$)/;
 
-  beforeAll( async () => {
+  beforeAll(async () => {
     await writeAsync(`${srcMock}/firstJs.js`, '');
     await writeAsync(`${srcMock}/secondJs.js`, '');
     await writeAsync(`${srcMock}/thirdJs.js`, '');
@@ -32,7 +30,7 @@ describe('readFiles', () => {
   });
 
   afterAll(() => {
-    jetpack.remove(tempDist)
+    jetpack.remove(tempDist);
   });
 
   test('return list of 12 files', async () => {
@@ -40,23 +38,20 @@ describe('readFiles', () => {
     expect(listFiles.length).toBe(12);
   });
 
-
   test('return only js and jsx file extension', async () => {
     const listFiles = await readFiles(srcMock);
-    const filesCheck = listFiles.every(
-      file => regexDefault.test(file.name)
-    )
+    const filesCheck = listFiles.every(file => regexDefault.test(file.name));
     expect(filesCheck).toBeTruthy();
   });
 
   test('return [{name: String, type: String, size: Number}] formater ', async () => {
     const listFiles = await readFiles(srcMock);
     const checkObjectType = listFiles.every(
-      file => (
-        file.hasOwnProperty('name')
-        && file.hasOwnProperty('type')
-        && file.hasOwnProperty('size')
-    ));
+      file =>
+        file.hasOwnProperty('name') &&
+        file.hasOwnProperty('type') &&
+        file.hasOwnProperty('size'),
+    );
 
     expect(checkObjectType).toBeTruthy();
   });
@@ -89,5 +84,4 @@ describe('readFiles', () => {
 
     expect(errorMessage).toBe('regExtensions invalid as regExp Object');
   });
-
 });

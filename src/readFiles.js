@@ -23,14 +23,13 @@ async function readFiles(src, regExtensions = /(\.js$|\.jsx$)/) {
       }
     });
 
-    await jetpack.inspectTreeAsync(src)
-      .then(resp => {
-        files = resp.children.filter(item => {
-          return item.type === 'file' && regExtensions.test(item.name);
-        });
-
-        dirs = resp.children.filter(item => item.type === 'dir');
+    await jetpack.inspectTreeAsync(src).then(resp => {
+      files = resp.children.filter(item => {
+        return item.type === 'file' && regExtensions.test(item.name);
       });
+
+      dirs = resp.children.filter(item => item.type === 'dir');
+    });
 
     await series(dirs, async dir => {
       const newPath = path.resolve(src, dir.name);

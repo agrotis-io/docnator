@@ -51,7 +51,7 @@ describe('writeSummary', () => {
 * [maca.js](api/maca.js.md)`;
 
   afterAll(() => {
-    jetpack.remove(tempDist)
+    jetpack.remove(tempDist);
   });
 
   test('writed summary', async () => {
