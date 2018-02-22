@@ -1,6 +1,27 @@
 # DOCNATOR
 > ||| :no_entry_sign: in progress, docnator still are in development. |||
 
+<p align="center">
+    <span>
+        <img alt="latest release" src="https://img.shields.io/github/release/agrotis-io/docnator/all.svg?style=flat-square">
+    </span>
+    <span>
+        <img alt="travis ci build status" src="https://img.shields.io/travis/agrotis-io/docnator/master.svg?style=flat-square">
+    </span>
+    <span>
+        <img alt="percentage of code coverage by tests" src="https://img.shields.io/codecov/c/github/agrotis-io/docnator/master.svg?style=flat-square">
+    </span>
+    <span>
+        <img alt="minimum node version" src="https://img.shields.io/node/v/docnator.svg?style=flat-square">
+    </span>
+    <span>
+        <img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square">
+    </span>
+    <span>
+        <img alt="semantic release" src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square">
+    </span>
+</p>
+
 docnator is a CLI for generate the documentation of your javascript project, take your [jsdocs](http://usejsdoc.org/), transform in markdown files, and use [gitbook](https://www.gitbook.com/) template.
 
 ![docnator logomark](images/docnator.jpg)
