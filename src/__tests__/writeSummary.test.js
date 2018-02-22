@@ -4,6 +4,10 @@ const jetpack = require('fs-jetpack');
 const path = require('path');
 
 describe('writeSummary', () => {
+  afterAll(() => {
+    jetpack.remove(tempDist);
+  });
+
   const tempDist = path.resolve(process.cwd(), 'temp');
   const summaryPathTest = path.resolve(tempDist, 'summary_test.md');
   const fakeSummaryPath = 'fake_summary';
@@ -49,10 +53,6 @@ describe('writeSummary', () => {
 * [safadinha.js](api/safadinha.js.md)
 * [banana.js](api/banana.js.md)
 * [maca.js](api/maca.js.md)`;
-
-  afterAll(() => {
-    jetpack.remove(tempDist);
-  });
 
   test('writed summary', async () => {
     await writeSummary(summaryPathTest, listDocsTest);
