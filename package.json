@@ -27,7 +27,7 @@
     "postcoverage": "opn coverage/lcov-report/index.html",
     "precommit": "lint-staged",
     "report-coverage": "cat ./coverage/lcov.info | codecov",
-    "test": "rm -rf dist && jest",
+    "test": "jest",
     "watch": "npm-watch"
   },
   "lint-staged": {
