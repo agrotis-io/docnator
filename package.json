@@ -11,7 +11,7 @@
     "url": "github.com/agrotis-io/docnator/issues"
   },
   "homepage": "github.com/agrotis-io/docnator#readme",
-  "main": "index.js",
+  "main": "dist",
   "author": {
     "name": "João Henrique Serodio",
     "email": "jhserodio@gmail.com",
