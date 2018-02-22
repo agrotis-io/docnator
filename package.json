@@ -3,7 +3,14 @@
   "version": "0.0.2",
   "description": "CLI for jsdocs generator",
   "license": "MIT",
-  "repository": "github.com/agrotis-io/docnator",
+  "repository": {
+    "type": "git",
+    "url": "github.com/agrotis-io/docnator"
+  },
+  "bugs": {
+    "url": "github.com/agrotis-io/docnator/issues"
+  },
+  "homepage": "github.com/agrotis-io/docnator#readme",
   "main": "index.js",
   "author": {
     "name": "João Henrique Serodio",
