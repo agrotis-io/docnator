@@ -7,13 +7,13 @@ cache:
   directories:
     - "node_modules"
 script:
-  - yarn test
-  - yarn build
+  - npm test
+  - npm build
   # - yarn danger
 after_success:
-  - yarn run report-coverage
+  - npm run report-coverage
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
-      yarn run semantic-release;
+      npm run semantic-release;
     fi'
   - echo 'Success, your PR is awaesome :o'
 
