@@ -11,13 +11,7 @@ script:
   - npm build
   # - yarn danger
 after_success:
-  - echo "========== || ========"
-  - ls
-  - echo "========== || ========"
   - npm run report-coverage
-  - echo "========== || ========"
-  - ls
-  - echo "========== || ========"
   - npm run semantic-release;
   - echo 'Success, your PR is awaesome :o'
 
