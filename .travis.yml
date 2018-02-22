@@ -15,12 +15,10 @@ after_success:
   - ls
   - echo "========== || ========"
   - npm run report-coverage
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
-        - echo "========== || ========"
-        - ls
-        - echo "========== || ========"
-      - npm run semantic-release;
-    fi'
+  - echo "========== || ========"
+  - ls
+  - echo "========== || ========"
+  - npm run semantic-release;
   - echo 'Success, your PR is awaesome :o'
 
 after_failure:
