@@ -1,6 +1,6 @@
 {
   "name": "docnator",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "CLI for jsdocs generator",
   "license": "MIT",
   "repository": {
