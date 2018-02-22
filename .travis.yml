@@ -11,9 +11,15 @@ script:
   - npm build
   # - yarn danger
 after_success:
+  - echo "========== || ========"
+  - ls
+  - echo "========== || ========"
   - npm run report-coverage
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
-      npm run semantic-release;
+        - echo "========== || ========"
+        - ls
+        - echo "========== || ========"
+      - npm run semantic-release;
     fi'
   - echo 'Success, your PR is awaesome :o'
 
