@@ -29,7 +29,7 @@
     "report-coverage": "cat ./coverage/lcov.info | codecov",
     "test": "jest",
     "watch": "npm-watch",
-    "semantic-release": "yarn run build && semantic-release"
+    "semantic-release": "semantic-release"
   },
   "lint-staged": {
     "*.js": "prettier -c .prettierrc src/** --write"
