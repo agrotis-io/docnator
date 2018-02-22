@@ -1,16 +1,16 @@
 {
   "name": "docnator",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "CLI for jsdocs generator",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "github.com/agrotis-io/docnator"
+    "url": "https://github.com/agrotis-io/docnator"
   },
   "bugs": {
-    "url": "github.com/agrotis-io/docnator/issues"
+    "url": "https://github.com/agrotis-io/docnator/issues"
   },
-  "homepage": "github.com/agrotis-io/docnator#readme",
+  "homepage": "https://github.com/agrotis-io/docnator#readme",
   "main": "dist",
   "author": {
     "name": "João Henrique Serodio",
@@ -28,7 +28,8 @@
     "precommit": "lint-staged",
     "report-coverage": "cat ./coverage/lcov.info | codecov",
     "test": "jest",
-    "watch": "npm-watch"
+    "watch": "npm-watch",
+    "semantic-release": "yarn run build && semantic-release"
   },
   "lint-staged": {
     "*.js": "prettier -c .prettierrc src/** --write"

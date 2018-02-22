@@ -13,7 +13,7 @@ script:
 after_success:
   - yarn run report-coverage
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
-      semantic-release;
+      yarn run semantic-release;
     fi'
   - echo 'Success, your PR is awaesome :o'
 
