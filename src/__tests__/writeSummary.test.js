@@ -4,7 +4,8 @@ const jetpack = require('fs-jetpack');
 const path = require('path');
 
 describe('writeSummary', () => {
-  const summaryPathTest = path.resolve(__dirname, './summary_test.md');
+  const tempDist = path.resolve(process.cwd(), 'temp');
+  const summaryPathTest = path.resolve(tempDist, 'summary_test.md');
   const fakeSummaryPath = 'fake_summary';
   const listDocsTest = [
     {
@@ -49,19 +50,18 @@ describe('writeSummary', () => {
 * [banana.js](api/banana.js.md)
 * [maca.js](api/maca.js.md)`;
 
+  afterAll(() => {
+    jetpack.remove(tempDist)
+  });
+
   test('writed summary', async () => {
     await writeSummary(summaryPathTest, listDocsTest);
-
     const summary = await jetpack.read(summaryPathTest);
-
     expect(summary).toBe(writeSummaryResultTest);
-
-    jetpack.remove(summaryPathTest);
   });
 
   test('summary clear', async () => {
     const summ = await writeSummary(summaryPathTest, listDocsTest);
-    jetpack.remove(summaryPathTest);
     expect(summ).toBe('summary clear');
   });
 
