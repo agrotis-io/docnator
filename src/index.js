@@ -11,7 +11,7 @@ program
   .alias('b')
   .action((target, extension) => {
     console.log('this is the source files directory %s', target);
-    console.log('this is the extensions %s', extension);
+    console.log('this is the extension %s', extension);
   });
 
 program
