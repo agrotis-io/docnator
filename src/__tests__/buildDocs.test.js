@@ -7,5 +7,5 @@ describe('buildDocs', () => {
     const result = `this is the source files directory ${target} \n this is the extension ${extension}`;
 
     expect(buildDocs(target, extension)).toBe(result);
-  })
-})
+  });
+});
