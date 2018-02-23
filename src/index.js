@@ -2,6 +2,9 @@
 
 const program = require('commander');
 
+import { serverDocs } from './serverDocs';
+import { buildDocs } from './buildDocs';
+
 program
   .version(require('../package.json').version)
   .description(
@@ -9,16 +12,11 @@ program
   )
   .command('build <target> <extension>')
   .alias('b')
-  .action((target, extension) => {
-    console.log('this is the source files directory %s', target);
-    console.log('this is the extension %s', extension);
-  });
+  .action(buildDocs);
 
 program
   .command('server')
   .alias('s')
-  .action(() => {
-    console.log('listen the localhost:8080 motherfucker B(');
-  });
+  .action(serverDocs);
 
 program.parse(process.argv);
