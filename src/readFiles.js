@@ -8,7 +8,7 @@ const path = require('path');
  * @param {RegExp} [regExtension=/(\.js$|\.jsx$)/] -  regex for extension files for search
  * @returns {Promise<[{name: String, type: String, size: Number}]>} list of all files
  */
-async function readFiles(src, regExtensions = /(\.js$|\.jsx$)/) {
+async function readFiles(src, regExtensions) {
   return new Promise(async (resolve, reject) => {
     let dirs = [];
     let files = [];
