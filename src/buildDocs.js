@@ -1,35 +1,29 @@
 import { readFiles } from './readFiles';
 
 const series = require('async-array-methods').series;
-const jsdoc2md = require('jsdoc-to-markdown')
+const jsdoc2md = require('jsdoc-to-markdown');
 const jetpack = require('fs-jetpack');
-const path = require('path')
+const path = require('path');
 
-export function buildDocs(
-  target = 'src',
-  extension = 'js$|\.jsx'
-) {
-
+export function buildDocs(target = 'src', extension = 'js$|.jsx') {
   const outputDir = path.resolve(process.cwd(), 'docs/api');
   const summary = path.resolve(process.cwd(), 'docs/SUMMARY.md');
 
   /* verify and create a api doc dir */
-  jetpack
-    .existsAsync(outputDir)
-    .then( exist => {
-      if (!exist) { jetpack.dir(outputDir) }
-    });
+  jetpack.existsAsync(outputDir).then(exist => {
+    if (!exist) {
+      jetpack.dir(outputDir);
+    }
+  });
 
   return new Promise(async (resolve, reject) => {
-
-
     const src = path.resolve(process.cwd(), target);
 
     // criar inputFiles target
     let inputFiles = '';
 
     // criar a regex com extension
-    const inputFilesRegex = new RegExp('(\.' + extension + ')$');
+    const inputFilesRegex = new RegExp('(.' + extension + ')$');
 
     const checkSrc = await jetpack.existsAsync(src);
 
@@ -42,22 +36,17 @@ export function buildDocs(
     if (!checkSrc) {
       return reject(`${src} don't exist`);
     }
-    
-    inputFiles = path.resolve(process.cwd(), src);
-    
+
+    inputFiles = path.resolve(process.cwd(), `${src}/**/*`);
 
     // leia todos os arquivos
     const allFiles = await readFiles(src, inputFilesRegex);
 
-    // pega 
-    const templateData = await jsdoc2md.getTemplateData({ files: inputFiles });
-
     resolve(templateData);
-  })
-
+  });
 }
 
-buildDocs('margarida')
+buildDocs('src');
 
 // readAllFiles(src)
 //   .then(readFileResp => {
@@ -108,4 +97,3 @@ buildDocs('margarida')
 //         writeSummary(summary, writedFiles);
 //       }, [])
 //   })
-
