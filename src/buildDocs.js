@@ -18,7 +18,7 @@ export function buildDocs(
     .existsAsync(outputDir)
     .then( exist => {
       if (!exist) { jetpack.dir(outputDir) }
-    })
+    });
 
   return new Promise(async (resolve, reject) => {
 
@@ -26,20 +26,33 @@ export function buildDocs(
     const src = path.resolve(process.cwd(), target);
 
     // criar inputFiles target
-    const inputFiles = 'src';
+    let inputFiles = '';
 
     // criar a regex com extension
     const inputFilesRegex = new RegExp('(\.' + extension + ')$');
 
+    const checkSrc = await jetpack.existsAsync(src);
+
     // verificar se regex
     if (!(inputFilesRegex instanceof RegExp)) {
-      return reject('inputFilesRegex invalid as regExp Object');
+      return reject(`${extension} invalid as regExp Object`);
     }
 
-    // leia todos os arquivos
-    const ashashashashallFiles = await readFiles(src, inputFilesRegex);
+    // verificar se regex
+    if (!checkSrc) {
+      return reject(`${src} don't exist`);
+    }
+    
+    inputFiles = path.resolve(process.cwd(), src);
+    
 
-    resolve(allFiles);
+    // leia todos os arquivos
+    const allFiles = await readFiles(src, inputFilesRegex);
+
+    // pega 
+    const templateData = await jsdoc2md.getTemplateData({ files: inputFiles });
+
+    resolve(templateData);
   })
 
 }
