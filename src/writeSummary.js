@@ -1,9 +1,10 @@
 const jetpack = require('fs-jetpack');
 
 /**
- * @function writeSummary write a summary.md file in summaryPath directory
+ * @function writeSummary
  * @param {String} summaryPath path for summary directory
- * @param {[{ name: String, type: String, size: Number}]} contentList list of content menu summary
+ * @param {Array<{ name: String, type: String, size: Number}>} contentList list of content menu summary
+ * @returns {void}
  */
 async function writeSummary(summaryPath, contentList) {
   const summaryPathRegex = /\.md$/;

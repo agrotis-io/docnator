@@ -1,11 +1,49 @@
 import { readFiles } from './readFiles';
 
-const series = require('async-array-methods').series;
 const jsdoc2md = require('jsdoc-to-markdown');
 const jetpack = require('fs-jetpack');
 const path = require('path');
 
-export function buildDocs(target = 'src', extension = 'js$|.jsx') {
+/**
+ * @function mountTemplateDataFileName
+ * @param {Array<{ meta: { fileName: String }}>} template response of jsdoc2md.getTemplateData.
+ * @return {Array} list of template Objects
+ */
+function mountTemplateDataFileName(template) {
+  if (!(template && temlete[0])) {
+    return [];
+  }
+
+  return template.reduce((data, item) => {
+    const filenameCondition = item.meta && item.meta.filename;
+
+    if (filenameCondition && data[item.meta.filename]) {
+      const lastVerify = data[item.meta.filename].find(
+        file => file.id === item.id,
+      );
+
+      if (!lastVerify) {
+        data[item.meta.filename].push(item);
+      }
+    } else if (filenameCondition && !data[item.meta.filename]) {
+      data = {
+        ...data,
+        [item.meta.filename]: [item],
+      };
+    }
+
+    return data;
+  }, {});
+}
+
+/**
+ * @function buildDocs
+ * @param {String} [target='src']  - target to read the jsdocs in source files
+ * @param {String} [extension='js$.jsx'] - extension for regex check files extension
+ * @return {String} return a resolve message
+ **/
+
+async function buildDocs(target = 'src', extension = 'js$|.jsx') {
   const outputDir = path.resolve(process.cwd(), 'docs/api');
   const summary = path.resolve(process.cwd(), 'docs/SUMMARY.md');
 
@@ -21,6 +59,10 @@ export function buildDocs(target = 'src', extension = 'js$|.jsx') {
 
     // criar inputFiles target
     let inputFiles = '';
+    let allFiles = [];
+    let templateData = {};
+    let fileNames = [];
+    let writedFiles = [];
 
     // criar a regex com extension
     const inputFilesRegex = new RegExp('(.' + extension + ')$');
@@ -33,67 +75,24 @@ export function buildDocs(target = 'src', extension = 'js$|.jsx') {
     }
 
     // verificar se regex
-    if (!checkSrc) {
+    if (checkSrc !== 'dir') {
       return reject(`${src} don't exist`);
     }
 
     inputFiles = path.resolve(process.cwd(), `${src}/**/*`);
+    allFiles = await readFiles(src, inputFilesRegex);
+    templateData = await jsdoc2md.getTemplateData({ files: inputFiles });
+    fileNames = mountTemplateDataFileName(templateData);
 
-    // leia todos os arquivos
-    const allFiles = await readFiles(src, inputFilesRegex);
+    for (const name in fileNames) {
+      const output = jsdoc2md.renderSync({ data: fileNames[name] });
+      jetpack.write(path.resolve(outputDir, `${name}.md`), output);
+      const fileInclude = allFiles.filter(file => file.name === name);
+      writedFiles.push(...fileInclude);
+    }
 
-    resolve(templateData);
+    resolve('docs generateds');
   });
 }
 
-buildDocs('src');
-
-// readAllFiles(src)
-//   .then(readFileResp => {
-//     jsdoc2md.getTemplateData({ files: inputFile })
-//       .then(templateResp => {
-
-//         const members = templateResp.reduce((names, item) => {
-//           const memberofCondition = !item.meta && item.memberof
-//           if (memberofCondition) { names.push(item) }
-//           return names
-//         }, []);
-
-//         const filenames = templateResp.reduce((names, item) => {
-//           const filenameCondition = item.meta && item.meta.filename
-
-//           if (filenameCondition && names[item.meta.filename]) {
-//             const lastVerify = names[item.meta.filename].find(file => file.id === item.id)
-//             if (!lastVerify) { names[item.meta.filename].push(item) }
-//           } else  if (filenameCondition && !names[item.meta.filename]) {
-//             names = {
-//               ...names,
-//               [item.meta.filename]: [item]
-//             }
-//           }
-//           return names
-//         }, [])
-
-//         const templateTree = { ...filenames }
-
-//         const writedFiles = []
-
-//         for (const name in filenames) {
-//           const file = [ ...filenames[name] ]
-//           for (const member of members) {
-//               if (file.find(item => item.id === member.memberof)) {
-//                 templateTree[name].push(member);
-//               }
-//           }
-//         }
-
-//         for (const name in templateTree) {
-//           const output = jsdoc2md.renderSync({data: templateTree[name]})
-//           jetpack.write(path.resolve(outputDir, `${name}.md`), output);
-//           const fileInclude = readFileResp.filter(file => file.name === name)
-//           writedFiles.push(...fileInclude)
-//         }
-
-//         writeSummary(summary, writedFiles);
-//       }, [])
-//   })
+export { mountTemplateDataFileName, buildDocs };
