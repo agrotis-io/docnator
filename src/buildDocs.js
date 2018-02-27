@@ -7,10 +7,10 @@ const path = require('path');
 /**
  * @function mountTemplateDataFileName
  * @param {Array<{ meta: { fileName: String }}>} template response of jsdoc2md.getTemplateData.
- * @return {Array} list of template Objects
+ * @return {Object<Array<Object>>} list of template Objects
  */
 function mountTemplateDataFileName(template) {
-  if (!(template && temlete[0])) {
+  if (!(template && template[0])) {
     return [];
   }
 
@@ -47,12 +47,8 @@ async function buildDocs(target = 'src', extension = 'js$|.jsx') {
   const outputDir = path.resolve(process.cwd(), 'docs/api');
   const summary = path.resolve(process.cwd(), 'docs/SUMMARY.md');
 
-  /* verify and create a api doc dir */
-  jetpack.existsAsync(outputDir).then(exist => {
-    if (!exist) {
-      jetpack.dir(outputDir);
-    }
-  });
+  /* create a api doc dir */
+  jetpack.dir(outputDir);
 
   return new Promise(async (resolve, reject) => {
     const src = path.resolve(process.cwd(), target);
@@ -70,7 +66,7 @@ async function buildDocs(target = 'src', extension = 'js$|.jsx') {
     const checkSrc = await jetpack.existsAsync(src);
 
     // verificar se regex
-    if (!(inputFilesRegex instanceof RegExp)) {
+    if (!(inputFilesRegex instanceof RegExp) || typeof extension !== 'string') {
       return reject(`${extension} invalid as regExp Object`);
     }
 
