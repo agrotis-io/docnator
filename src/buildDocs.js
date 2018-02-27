@@ -57,7 +57,7 @@ async function buildDocs(target = 'src', extension = 'js$|.jsx') {
     let inputFiles = '';
     let allFiles = [];
     let templateData = {};
-    let fileNames = [];
+    let fileNames = {};
     let writedFiles = [];
 
     // criar a regex com extension
@@ -87,7 +87,7 @@ async function buildDocs(target = 'src', extension = 'js$|.jsx') {
       writedFiles.push(...fileInclude);
     }
 
-    resolve('docs generateds');
+    resolve(allFiles.filter(file => fileNames.hasOwnProperty(file.name)));
   });
 }
 

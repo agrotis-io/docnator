@@ -131,12 +131,27 @@ const App = ({props}) => (
 
   afterAll(() => {
     jetpack.remove(tempDist);
+    jetpack.remove(target);
   });
 
   it('check doc generate', async () => {
-    const responseExpect = 'docs generateds';
-    const response = await buildDocs(srcMock);
-    expect(response).toBe(responseExpect);
+    const filesResponseExpect = [
+      "firstJs.js",
+      "secondJs.js",
+      "thirdJs.js",
+      "FirstJsx.jsx",
+      "fourthJs.js"
+    ];
+
+    const summaryList = await buildDocs(srcMock);
+
+    const result = filesResponseExpect.every(file =>  {
+      if (summaryList.some(item => item.name === file)) {
+        return true;
+      }
+    })
+
+    expect(result).toBeTruthy();
   });
 
   it('check doc generated with multiples declarations', async () => {
