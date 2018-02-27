@@ -3,10 +3,10 @@ const jetpack = require('fs-jetpack');
 const path = require('path');
 
 /**
- * @function readAllFiles read all js and jsx extension files of diretory(src) and your sub directories.
+ * @function readAllFiles
  * @param {String} src path of files projects that must be documented
  * @param {RegExp} [regExtension=/(\.js$|\.jsx$)/] -  regex for extension files for search
- * @returns {Promise<[{name: String, type: String, size: Number}]>} list of all files
+ * @returns {Promise<Array<{name: String, type: String, size: Number}>>} list of all files
  */
 async function readFiles(src, regExtensions = /(\.js$|\.jsx$)/) {
   return new Promise(async (resolve, reject) => {
