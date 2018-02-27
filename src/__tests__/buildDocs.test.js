@@ -136,20 +136,20 @@ const App = ({props}) => (
 
   it('check doc generate', async () => {
     const filesResponseExpect = [
-      "firstJs.js",
-      "secondJs.js",
-      "thirdJs.js",
-      "FirstJsx.jsx",
-      "fourthJs.js"
+      'firstJs.js',
+      'secondJs.js',
+      'thirdJs.js',
+      'FirstJsx.jsx',
+      'fourthJs.js',
     ];
 
     const summaryList = await buildDocs(srcMock);
 
-    const result = filesResponseExpect.every(file =>  {
+    const result = filesResponseExpect.every(file => {
       if (summaryList.some(item => item.name === file)) {
         return true;
       }
-    })
+    });
 
     expect(result).toBeTruthy();
   });
