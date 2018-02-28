@@ -43,7 +43,7 @@ function mountTemplateDataFileName(template) {
  * @return {String} return a resolve message
  **/
 
-async function buildDocs(target = 'src', extension = 'js$|.jsx') {
+async function buildDocs(target, extension = 'js$|.jsx') {
   const outputDir = path.resolve(process.cwd(), 'docs/api');
   const summary = path.resolve(process.cwd(), 'docs/SUMMARY.md');
 

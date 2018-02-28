@@ -1,12 +1,16 @@
 const jetpack = require('fs-jetpack');
+const path = require('path');
 
 /**
  * @function writeSummary
- * @param {String} summaryPath path for summary directory
  * @param {Array<{ name: String, type: String, size: Number}>} contentList list of content menu summary
+ * @param {String} summaryPath path for summary directory
  * @returns {void}
  */
-async function writeSummary(summaryPath, contentList) {
+async function writeSummary(
+  contentList,
+  summaryPath = path.resolve(process.cwd(), 'SUMMARY.md'),
+) {
   const summaryPathRegex = /\.md$/;
 
   function checkContentList(content) {
@@ -29,7 +33,7 @@ async function writeSummary(summaryPath, contentList) {
     }
 
     const content = contentList.map(
-      item => `\n* [${item.name}](api/${item.name}.md)`,
+      item => `\n* [${item.name}](docs/api/${item.name}.md)`,
     );
 
     jetpack.readAsync(summaryPath).then(resp => {
