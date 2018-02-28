@@ -49,7 +49,8 @@
     "coveragePathIgnorePatterns": [
       "<rootDir>/dist/",
       "<rootDir>/docs/",
-      "<rootDir>/node_modules/"
+      "<rootDir>/node_modules/",
+      "<rootDir>/_book/"
     ],
     "coverageThreshold": {
       "global": {

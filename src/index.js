@@ -2,21 +2,34 @@
 
 const program = require('commander');
 
-import { serverDocs } from './serverDocs';
 import { buildDocs } from './buildDocs';
+import { writeSummary } from './writeSummary';
 
 program
   .version(require('../package.json').version)
   .description(
     'Docnator is a CLI for generate documentation with gitbook and jsdocs',
   )
-  .command('build <target> <extension>')
-  .alias('b')
-  .action(buildDocs);
+  .arguments('<target> [summaryPath] [extension]')
+  .action((target, summaryPath, extension) => {
+    buildDocs(target, extension)
+      .then(resp => writeSummary(resp, summaryPath))
+      .then(() => console.log('docnator finish'))
+      .catch(e => console.log(e));
+  });
 
-program
-  .command('server')
-  .alias('s')
-  .action(serverDocs);
+program.on('--help', () => {
+  const help = `
+
+  Example: docnator src
+
+  arguments:
+
+  - target: file source repository, is required.
+  - summaryPath: path of SUMMARY.md file, optional
+  - extension: extension file sources, optional
+`;
+  console.log(help);
+});
 
 program.parse(process.argv);

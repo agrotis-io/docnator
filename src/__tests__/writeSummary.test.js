@@ -47,21 +47,29 @@ describe('writeSummary', () => {
   const writeSummaryResultTest = `# Summary
 
 * [Introduction](README.md)
-* [carambolas.js](api/carambolas.js.md)
-* [quadrada.js](api/quadrada.js.md)
-* [melancia.js](api/melancia.js.md)
-* [safadinha.js](api/safadinha.js.md)
-* [banana.js](api/banana.js.md)
-* [maca.js](api/maca.js.md)`;
+* [carambolas.js](docs/api/carambolas.js.md)
+* [quadrada.js](docs/api/quadrada.js.md)
+* [melancia.js](docs/api/melancia.js.md)
+* [safadinha.js](docs/api/safadinha.js.md)
+* [banana.js](docs/api/banana.js.md)
+* [maca.js](docs/api/maca.js.md)`;
 
   test('writed summary', async () => {
-    await writeSummary(summaryPathTest, listDocsTest);
+    await writeSummary(listDocsTest, summaryPathTest);
     const summary = await jetpack.read(summaryPathTest);
     expect(summary).toBe(writeSummaryResultTest);
   });
 
+  test('writed summary without summaryPath', async () => {
+    await writeSummary(listDocsTest);
+    const defaultSummaryPath = path.resolve(process.cwd(), 'SUMMARY.md');
+    const summary = await jetpack.read(defaultSummaryPath);
+    expect(summary).toBe(writeSummaryResultTest);
+    jetpack.remove(defaultSummaryPath);
+  });
+
   test('summary clear', async () => {
-    const summ = await writeSummary(summaryPathTest, listDocsTest);
+    const summ = await writeSummary(listDocsTest, summaryPathTest);
     expect(summ).toBe('summary clear');
   });
 
@@ -69,7 +77,7 @@ describe('writeSummary', () => {
     let errorMessage = '';
 
     try {
-      await writeSummary(fakeSummaryPath, listDocsTest);
+      await writeSummary(listDocsTest, fakeSummaryPath);
     } catch (e) {
       errorMessage = e;
     }
@@ -81,7 +89,7 @@ describe('writeSummary', () => {
     let errorMessage = '';
 
     try {
-      await writeSummary(summaryPathTest, []);
+      await writeSummary([], summaryPathTest);
     } catch (e) {
       errorMessage = e;
     }
@@ -93,10 +101,10 @@ describe('writeSummary', () => {
     let errorMessage = '';
 
     try {
-      await writeSummary(summaryPathTest, [
-        { name: 'carambolas' },
-        { melancia: 'safadinha' },
-      ]);
+      await writeSummary(
+        [{ name: 'carambolas' }, { melancia: 'safadinha' }],
+        summaryPathTest,
+      );
     } catch (e) {
       errorMessage = e;
     }
