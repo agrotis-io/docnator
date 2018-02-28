@@ -3,6 +3,9 @@
     ["env", {
       "targets": {
         "node": 8
+      },
+      "production": {
+        "presets": ["minify"]
       }
     }],
     "stage-2"
