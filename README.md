@@ -41,7 +41,7 @@ $ npm install docnator --global
 
 **Usage** 
 ```shell
-$ docnator build
+$ docnator src
 ```
 
 ### Local
@@ -57,9 +57,9 @@ $ npm install docnator
 
 **Usage** 
 ```shell
-$ node_modules/docnator/bin/docnator.js build
+$ node_modules/docnator/bin/docnator.js src
 # you can create a script in your package.json
-# ex: "docnator:build": "node_modules/docnator/bin/docnator.js build"
+# ex: "docnator:build": "node_modules/docnator/bin/docnator.js src"
 ```
 
 ## Commands
@@ -67,19 +67,17 @@ $ node_modules/docnator/bin/docnator.js build
 ### build
 > comand for generate the documentation.
 ```shell
-$ docnator build [target] [extension]
-# ex: docnator server lib js
+$ docnator <target> [summaryPath] [extension]
+# ex: docnator lib js
 ``` 
 |arg|description|required|default value|
 |---|-----------|--------|-------------|
 |target| source files directory | false | src |
+|summaryPath| path of SUMMARY.md | false | ./SUMMARY.md |
 |extension| define the exclusive extension file | false | js, jsx |
 
 ### server
-> create a local server with gitbook for your documentations
-```shell
-$ docnator server
-```
+> create a local server with gitbook for your documentations, use [git book CLI](https://github.com/GitbookIO/gitbook-cli)
 
 ## Motivation
 

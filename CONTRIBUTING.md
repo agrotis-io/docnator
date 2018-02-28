@@ -49,7 +49,7 @@ Open a problem, mark it as other, and describe the current scenario, its problem
 Step by step, with all the way to get an issue, organize the development environment, solve the problem and submit to your pull request.
 
 ### Catch the task on the Project
-Take a task in the [project](https://github.com/agrotis-io/star-t/projects/1), read the content of issue, if you have any questions, leave a comment.
+Take a task in the [project](https://github.com/agrotis-io/docnator/projects/1), read the content of issue, if you have any questions, leave a comment.
 
 ### Clone/Fork the Project
 Members must be clone the project and submit a pull request, other contributors must be fork the project.
@@ -60,7 +60,7 @@ Our branches must be created using the name suggested in the description of the 
 > ex: issue_3-update_contributing
 
 ### Develop workflow
-After cloning the project and creating the branch, follow [README.md](https://github.com/agrotis-io/star-t/blob/master/README.md) to configure your environment. Develop your solution and write your tests (if necessary), when your task is finished, send it to pull request.
+After cloning the project and creating the branch, follow [README.md](https://github.com/agrotis-io/docnator/blob/master/README.md) to configure your environment. Develop your solution and write your tests (if necessary), when your task is finished, send it to pull request.
 
 ## lint
 We have used the [prettier](https://prettier.io/) ccode formatter, if you want to configure your editor to work with it, see [integration](https://prettier.io/docs/en/editors.html).
