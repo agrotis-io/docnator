@@ -72,7 +72,7 @@ $ docnator <target> [summaryPath] [extension]
 ``` 
 |arg|description|required|default value|
 |---|-----------|--------|-------------|
-|target| source files directory | false | src |
+|target| source files directory | true | null |
 |summaryPath| path of SUMMARY.md | false | ./SUMMARY.md |
 |extension| define the exclusive extension file | false | js, jsx |
 
